@@ -39,6 +39,6 @@ The design follows a modular integration approach:
 * **Simulation & Verification:** Icarus Verilog, GTKWave
 
 ## 👨‍💻 About the Author
-**Yarin Dover Chaim Ilan**
+**Yarin Ilan**
 Engineering Student at Ben-Gurion University of the Negev.
 Focused on Computer Architecture, RTL, Chip Design, and Hardware Engineering.
