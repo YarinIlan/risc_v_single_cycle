@@ -11,7 +11,7 @@ logic [7:0] addr_index;
 logic [31:0] memory [255:0];
 
 initial begin
-    $readmemh("C:/Users/User/Desktop/project risk v/sim/data.hex",memory);
+    $readmemh("C:/Users/User/Desktop/project risc v/sim/data.hex",memory);
 end
 
 always_ff@(posedge clk) begin

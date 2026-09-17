@@ -4,12 +4,12 @@ module risc_v_top(
 );
 
 logic alu_src;
-logic pc_src;
+logic [1:0] pc_src;
 logic reg_write;
 logic [3:0] alu_ctrl;
 logic [2:0] imm_src;
 logic mem_write;
-logic [1:0] result_src;
+logic [2:0] result_src;
 logic [6:0] op_code;
 logic bit30func7;
 logic [2:0] func3;

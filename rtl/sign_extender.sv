@@ -22,7 +22,7 @@ always@(*) begin
 
     u_type: extended = {{instruction[31:12]}, 12'b0};
 
-    j_type: extended = {{12{instruction[31]}}, instruction[31], instruction[19:12], instruction[20], instruction[30:21], 1'b0};
+    j_type: extended = {{11{instruction[31]}}, instruction[31], instruction[19:12], instruction[20], instruction[30:21], 1'b0};
 
     default: extended = 32'b0;
 

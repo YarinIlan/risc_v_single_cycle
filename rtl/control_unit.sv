@@ -4,8 +4,8 @@ module control_unit(
     input logic [2:0] func3,
     input logic bit30func7,
     input logic zero,
-    output logic pc_src,
-    output logic [1:0] result_src,
+    output logic [1:0] pc_src,
+    output logic [2:0] result_src,
     output logic mem_write,
     output logic [3:0] alu_ctrl,
     output logic alu_src,
@@ -15,9 +15,13 @@ module control_unit(
 
 logic [1:0] alu_op;
 logic branch;
+logic jump;
+logic jalr;
 
 control_unit_main_decoder control_unit_main_decoder_instance(
     .op_code(op_code),
+    .jump(jump),
+    .jalr(jalr),
     .branch(branch),
     .result_src(result_src),
     .mem_write(mem_write),
@@ -35,6 +39,6 @@ control_unit_alu_decoder control_unit_alu_decoder_instance(
     .alu_ctrl(alu_ctrl)
 );
 
-assign pc_src = (branch)?(zero):1'b0;
+assign pc_src = jalr ? 2'b10 : (jump | (branch & zero)) ? 2'b01 : 2'b00;
 
 endmodule

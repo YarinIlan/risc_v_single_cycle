@@ -3,12 +3,12 @@ module datapath(
     input logic clk,
     input logic rst,
     input logic alu_src,
-    input logic pc_src,
+    input logic [1:0] pc_src,
     input logic reg_write,
     input logic [3:0] alu_ctrl,
     input logic [2:0] imm_src,
     input logic mem_write,
-    input logic [1:0] result_src,
+    input logic [2:0] result_src,
     output logic [6:0] op_code,
     output logic bit30func7,
     output logic [2:0] func3,
@@ -88,16 +88,26 @@ data_memory data_memory_instance(
 
 always_comb begin
     case(result_src)
-        2'b00: write_back_data = alu_result;
-        2'b01: write_back_data = mem_read_data;
-        2'b10: write_back_data = pc_inc;
-        default: write_back_data = alu_result;
+        3'b000: write_back_data = alu_result;
+        3'b001: write_back_data = mem_read_data;
+        3'b010: write_back_data = pc_inc;
+        3'b011: write_back_data = extended;
+        3'b100: write_back_data = pc_target;
+        default: write_back_data = 32'b0;
+    endcase
+end
+
+always_comb begin
+    case(pc_src)
+    2'b00: pc_next = pc_inc;
+    2'b01: pc_next = pc_target;
+    2'b10: pc_next = alu_result;
+    default: pc_next = pc_inc;
     endcase
 end
 
 assign pc_inc = pc_current + 32'd4;
 assign pc_target = pc_current + extended;
-assign pc_next = (pc_src)? (pc_target):(pc_inc); 
 assign b = (alu_src)? extended:read_data2;
 assign op_code = instruction[6:0];
 assign func3 = instruction[14:12];

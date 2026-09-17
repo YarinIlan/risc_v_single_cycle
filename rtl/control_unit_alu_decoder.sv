@@ -22,8 +22,20 @@ always_comb begin
                     else
                         alu_ctrl = 4'b0000;
                 end
+                3'b001: alu_ctrl = 4'b0101;
+
                 3'b010: alu_ctrl = 4'b1000;
-               
+
+                3'b011: alu_ctrl = 4'b1001;
+
+                3'b100: alu_ctrl = 4'b0100;
+
+                3'b101: begin
+                    if(bit30func7)
+                        alu_ctrl = 4'b0111;
+                    else 
+                        alu_ctrl = 4'b0110;
+                end
                 3'b110: alu_ctrl = 4'b0011;
 
                 3'b111: alu_ctrl = 4'b0010;  
