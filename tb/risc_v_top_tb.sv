@@ -19,7 +19,7 @@ module risc_v_top_tb;
         #15
 
         rst = 1'b0;// let the system run
-        #50
+        #200
 
         $finish;
     end

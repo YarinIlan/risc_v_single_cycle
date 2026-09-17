@@ -1,3 +1,8 @@
-addi x1, x0, 7
-sw x1, 4(x0)
-lw x2, 4(x0)
+00: lui x1, 1
+04: addi x2, x1, -1
+08: add x3, x2, x1
+12: sw x3, 4(x0)
+16: lw x4, 4(x0)
+20: beq x3, x4, 8
+24: jal x0, 0 - trap
+28: jal x0, 0
