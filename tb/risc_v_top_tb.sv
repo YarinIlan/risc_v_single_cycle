@@ -3,12 +3,17 @@ module risc_v_top_tb;
     logic clk;
     logic rst;
 
+    int clk_cycles = 0; //clock cycle counter
+
     risc_v_top dut(
         .clk(clk),
         .rst(rst)
     );
 
     always #5 clk = ~clk; //generate clock
+    always_ff@(posedge clk) begin
+        clk_cycles <= clk_cycles + 1;
+    end
 
     initial begin
         $dumpfile("sim/dump.vcd"); //create a dump file
@@ -19,8 +24,17 @@ module risc_v_top_tb;
         #15
 
         rst = 1'b0;// let the system run
-        #200
+        #350
 
+        if(dut.datapath_instance.data_memory_instance.memory[0] == 32'd15) 
+            $display("success: 15 value is written to memory[0], clock cycles:%d", clk_cycles);
+        else    
+            $display("failed: failed to write 15 value to mem[0], clock cycles:%d", clk_cycles);
+
+        if(dut.datapath_instance.regfile_instance.registers[2] == 32'd15 && dut.datapath_instance.regfile_instance.registers[1] == 32'd0) 
+                 $display("success: 15 value is written to reg[2] and reg[1], clock cycles:%d", clk_cycles);
+        else 
+            $display("failed: failed to write 15 value to reg[2] and reg[1], clock cycles:%d", clk_cycles);
         $finish;
     end
 
