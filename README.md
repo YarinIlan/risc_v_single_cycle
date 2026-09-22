@@ -12,9 +12,9 @@ The core RTL architecture is fully implemented and has passed initial integratio
 * Full ISA expansion including R-Type logicals/shifts, J-Type jumps, full B-Type branching infrastructure, and U-Type immediate handling.
 * Basic system-level sanity checks validated with bare-metal assembly algorithms and waveform analysis via GTKWave.
 * Top-level encapsulation and system synchronization.
+*  Development of an automated, self-checking Testbench.
 
 **Next Steps (Verification Phase):**
-* Development of an automated, self-checking Testbench (Golden Model comparison).
 * Extensive corner-case testing (e.g., zero-register immutability, misaligned memory access).
 * Integration with the official RISC-V Compliance Suite to ensure strict ISA standard compliance.
 * Implementation of Functional Coverage and SystemVerilog Assertions (SVA).
