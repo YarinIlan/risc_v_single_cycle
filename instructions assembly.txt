@@ -1,8 +1,13 @@
-00: lui x1, 1
-04: addi x2, x1, -1
-08: add x3, x2, x1
-12: sw x3, 4(x0)
-16: lw x4, 4(x0)
-20: beq x3, x4, 8
-24: jal x0, 0 - trap
-28: jal x0, 0
+sum of array(5)
+
+
+00: addi x1,x0,5
+04: addi x2,x0,0
+
+08: beq x1,x0,16
+12: add x2,x2,x1
+16: addi x1,x1,-1
+20: jal x3,-12
+
+24: sw x2,0
+28: jal x0,0
