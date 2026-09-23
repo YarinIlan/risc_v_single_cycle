@@ -1,4 +1,4 @@
-module risc_v_top_tb;
+module risc_v_top_sum_arr_tb;
 
     logic clk;
     logic rst;
@@ -17,7 +17,7 @@ module risc_v_top_tb;
 
     initial begin
         $dumpfile("sim/dump.vcd"); //create a dump file
-        $dumpvars(0, risc_v_top_tb);
+        $dumpvars(0, risc_v_top_sum_arr_tb);
 
         clk = 1'b0; //initialize system
         rst = 1'b1;
@@ -26,12 +26,12 @@ module risc_v_top_tb;
         rst = 1'b0;// let the system run
         #350
 
-        if(dut.datapath_instance.data_memory_instance.memory[0] == 32'd15) 
+        if(dut.datapath_instance.data_memory_instance.memory[0] == 32'd15) //write to memory check
             $display("success: 15 value is written to memory[0], clock cycles:%d", clk_cycles);
         else    
             $display("failed: failed to write 15 value to mem[0], clock cycles:%d", clk_cycles);
 
-        if(dut.datapath_instance.regfile_instance.registers[2] == 32'd15 && dut.datapath_instance.regfile_instance.registers[1] == 32'd0) 
+        if(dut.datapath_instance.regfile_instance.registers[2] == 32'd15 && dut.datapath_instance.regfile_instance.registers[1] == 32'd0) // sum value and decremented counter check
                  $display("success: 15 value is written to reg[2] and reg[1], clock cycles:%d", clk_cycles);
         else 
             $display("failed: failed to write 15 value to reg[2] and reg[1], clock cycles:%d", clk_cycles);
