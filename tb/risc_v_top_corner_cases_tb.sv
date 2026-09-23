@@ -18,7 +18,7 @@ module risc_v_top_corner_cases_tb;
     initial begin
         $dumpfile("sim/dump.vcd"); //create a dump file
         $dumpvars(0, risc_v_top_corner_cases_tb);
-        $readmemh("C:/Users/User/Desktop/project risc v/sim/instruction_data_corner_cases.hex", dut.datapath_instance.instruction_memory_instance.instruction_mem);
+        $readmemh("instruction_data_corner_cases.hex", dut.datapath_instance.instruction_memory_instance.instruction_mem);
 
         clk = 1'b0; //initialize system
         rst = 1'b1;
