@@ -44,12 +44,12 @@ module risc_v_top_corner_cases_tb;
         else
             $display("failed: undeflow test failed, register[3] is not 0xffffffff(-1), clock cycles:%d",clk_cycles);
 
-        if(dut.datapath_instance.regfile_instance.registers[5] != 32'b1)
+        if(dut.datapath_instance.regfile_instance.registers[5] != 32'b1) //slt signed check
             $display("failed: slt test failed, register[5] is not 1, clock cycles:%d",clk_cycles);
         else
             $display("success: slt test succeed, register[5] is 1, clock cycles:%d",clk_cycles);
 
-        if(dut.datapath_instance.regfile_instance.registers[6] == 32'b0)
+        if(dut.datapath_instance.regfile_instance.registers[6] == 32'b0) //slt unsigned check
             $display("success: sltu test succeed, register[6] is 0, clock cycles:%d",clk_cycles);
         else
             $display("failed: sltu test failed, register[6] is not 0, clock cycles:%d",clk_cycles);
