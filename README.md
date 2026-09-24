@@ -3,21 +3,33 @@
 ## 📌 Overview
 This repository contains a custom-built, single-cycle 32-bit RISC-V (RV32I) processor core implemented in SystemVerilog from scratch. The project focuses on a strict modular RTL design, explicitly separating the Datapath and Control Unit without relying on pre-made templates. The design physically realizes the standard RV32I Base Integer Instruction Set Architecture, handling memory load/stores, complex branching, unconditioned jumps, and upper-immediate calculations within a single clock cycle.
 
-## 🚧 Current Status: RTL Complete, Verification Ongoing
-The core RTL architecture is fully implemented and has passed initial integration sanity checks. The project is currently entering the comprehensive Verification phase.
+## 🚧 Current Status: Verification & Compliance
+The core RTL architecture is fully implemented. The project has successfully passed self-checking integration tests, corner-case validations, and is currently generating correct compliance signatures against the official RISC-V standard.
 
-**Achieved Milestones (Design Phase):**
-* Complete Datapath implementation (ALU, Register File, Sign Extender, PC logic).
-* Control Unit integration (Main Decoder + ALU Decoder) utilizing a decoupled control philosophy.
-* Full ISA expansion including R-Type logicals/shifts, J-Type jumps, full B-Type branching infrastructure, and U-Type immediate handling.
-* Basic system-level sanity checks validated with bare-metal assembly algorithms and waveform analysis via GTKWave.
-* Top-level encapsulation and system synchronization.
-* Development of an automated, self-checking Testbench.
-* Extensive corner-case testing.
+**Achieved Milestones (Design & Verification):**
+* ✅ Complete Datapath implementation (ALU, Register File, Sign Extender, PC logic).
+* ✅ Control Unit integration (Main Decoder + ALU Decoder) utilizing a decoupled control philosophy.
+* ✅ Full ISA expansion including R-Type logicals/shifts, J-Type jumps, full B-Type branching infrastructure, and U-Type immediate handling.
+* ✅ Basic system-level sanity checks validated with bare-metal assembly algorithms and waveform analysis via GTKWave.
+* ✅ Top-level encapsulation and system synchronization.
+* ✅ Development of an automated, self-checking Testbench.
+* ✅ Extensive corner-case testing (e.g., zero-register immutability, out-of-bounds shifts, arithmetic underflows).
+* ✅ Integration with the official RISC-V Compliance Suite to ensure strict ISA standard compliance via Signature Dumps.
 
-**Next Steps (Verification Phase):**
-* Integration with the official RISC-V Compliance Suite to ensure strict ISA standard compliance.
+**Next Steps:**
 * Implementation of Functional Coverage and SystemVerilog Assertions (SVA).
+* Block diagram and architectural documentation.
+
+## 🏅 RISC-V Compliance & Verification
+To ensure the processor strictly adheres to the RISC-V standard, the verification environment is designed to execute official **RISC-V Architecture Test Suite** programs. 
+
+The testbench dynamically loads compiled `.hex` compliance tests and utilizes a memory-dump mechanism (`$writememh`) to export the Data Memory contents upon test completion. This output is then compared against the official **Golden Signature**. 
+
+**Example: `ADD` Instruction Compliance Signature (Passed)**
+```text
+// 0x00000000 (Data Memory Output)
+0000000f  // Result of 5 + 10
+00000000  // Result of -1 + 1 (Arithmetic Overflow/Zero check)
 
 ## ⚙️ Supported Instruction Set (RV32I)
 The core successfully executes the following instruction categories:
