@@ -27,7 +27,7 @@ module risc_v_top_compliance_add_tb;
         rst = 1'b0;// let the system run
         #350
 
-        $writememh("sim/signature.output", dut.datapath_instance.data_memory_instance.memory);
+        $writememh("signature.output", dut.datapath_instance.data_memory_instance.memory);
     end
 
 endmodule
