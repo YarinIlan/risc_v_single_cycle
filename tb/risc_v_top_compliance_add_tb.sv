@@ -18,7 +18,7 @@ module risc_v_top_compliance_add_tb;
     initial begin
         $dumpfile("sim/dump.vcd"); //create a dump file
         $dumpvars(0, risc_v_top_compliance_add_tb);
-        $readmemh("sim/compliance_add.hex", dut.datapath_instance.instruction_memory_instance.instruction_mem);
+        $readmemh("instruction_data_compliance_add.hex", dut.datapath_instance.instruction_memory_instance.instruction_mem);
 
         clk = 1'b0; //initialize system
         rst = 1'b1;
