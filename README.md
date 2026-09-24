@@ -26,8 +26,7 @@ To ensure the processor strictly adheres to the RISC-V standard, the verificatio
 The testbench dynamically loads compiled `.hex` compliance tests and utilizes a memory-dump mechanism (`$writememh`) to export the Data Memory contents upon test completion. This output is then compared against the official **Golden Signature**. 
 
 **Example: `ADD` Instruction Compliance Signature (Passed)**
-```text
-// 0x00000000 (Data Memory Output)
+0x00000000// (Data Memory Output)
 0000000f  // Result of 5 + 10
 00000000  // Result of -1 + 1 (Arithmetic Overflow/Zero check)
 
