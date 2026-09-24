@@ -18,6 +18,7 @@ module risc_v_top_sum_arr_tb;
     initial begin
         $dumpfile("sim/dump.vcd"); //create a dump file
         $dumpvars(0, risc_v_top_sum_arr_tb);
+        $readmemh("instruction_data_sum_arr.hex", dut.datapath_instance.instruction_memory_instance.instruction_mem);
 
         clk = 1'b0; //initialize system
         rst = 1'b1;
