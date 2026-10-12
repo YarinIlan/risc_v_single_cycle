@@ -6,20 +6,29 @@ This repository contains a custom-built, single-cycle 32-bit RISC-V (RV32I) proc
 ## 🚧 Current Status: Verification & Compliance
 The core RTL architecture is fully implemented. The project has successfully passed self-checking integration tests, corner-case validations, and is currently generating correct compliance signatures against the official RISC-V standard.
 
-**Achieved Milestones (Design & Verification):**
-* ✅ Complete Datapath implementation (ALU, Register File, Sign Extender, PC logic).
-* ✅ Control Unit integration (Main Decoder + ALU Decoder) utilizing a decoupled control philosophy.
-* ✅ Full ISA expansion including R-Type logicals/shifts, J-Type jumps, full B-Type branching infrastructure, and U-Type immediate handling.
-* ✅ Basic system-level sanity checks validated with bare-metal assembly algorithms and waveform analysis via GTKWave.
-* ✅ Top-level encapsulation and system synchronization.
-* ✅ Development of an automated, self-checking Testbench.
-* ✅ Extensive corner-case testing (e.g., zero-register immutability, out-of-bounds shifts, arithmetic underflows).
-* ✅ Integration with the official RISC-V Compliance Suite to ensure strict ISA standard compliance via Signature Dumps.
+### 🚀 Achieved Milestones (Design & Verification)
+- [x] **Complete Datapath implementation** (ALU, Register File, Sign Extender, PC logic).
+- [x] **Control Unit integration** (Main Decoder + ALU Decoder) utilizing a decoupled control philosophy.
+- [x] **Full ISA expansion** including R-Type logicals/shifts, J-Type jumps, full B-Type branching infrastructure, and U-Type immediate handling.
+- [x] **Basic system-level sanity checks** validated with bare-metal assembly algorithms and waveform analysis via GTKWave.
+- [x] **Top-level encapsulation** and system synchronization.
+- [x] **Development of an automated, self-checking Testbench.**
+- [x] **Extensive corner-case testing** (e.g., zero-register immutability, out-of-bounds shifts, arithmetic underflows).
+- [x] **Integration with the official RISC-V Compliance Suite** to ensure strict ISA standard compliance via Signature Dumps.
+- [x] **Hardware Verification**: Implementation of SystemVerilog Assertions (SVA) for active runtime monitoring.
 
-**Next Steps:**
-* Implementation of Functional Coverage and SystemVerilog Assertions (SVA).
-* Block diagram and architectural documentation.
+### 🛡️ Hardware Verification & Assertions (SVA)
+To ensure hardware reliability and dynamically catch edge-case bugs during simulation, the processor's core modules are instrumented with runtime assertions. To maintain compatibility with Icarus Verilog while preserving industrial verification standards, these are implemented as **Icarus-Compatible Immediate Assertions** wrapped in `` `ifndef SYNTHESIS `` macros to ensure zero synthesis overhead. 
 
+Key architectural invariants verified at runtime include:
+* **Control Unit:** Mutual exclusion checks (e.g., preventing simultaneous `mem_write` and `jump`/`branch` operations) and strict validation of all legal control signal states.
+* **Register File:** Hardware-level enforcement of `x0` (Zero Register) immutability, along with synchronous write and asynchronous read verification across clock cycles.
+* **Program Counter (PC):** Strict verification of 4-byte memory alignment for all instruction fetches and branch targets.
+* **ALU:** Validation of legal ALU opcodes and strict correlation checks between the operational `result` and the `zero` flag, complete with 'X' (unknown) state protection during Time-0 initialization.
+
+### 🛠️ Next Steps
+- [ ] Generation of comprehensive Architectural Block Diagrams.
+- [ ] Functional Coverage analysis.
 ## 🏅 RISC-V Compliance & Verification
 To ensure the processor strictly adheres to the RISC-V standard, the verification environment is designed to execute official **RISC-V Architecture Test Suite** programs. 
 
