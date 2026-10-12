@@ -15,5 +15,15 @@ always_ff@(posedge clk or posedge rst) begin
 
 end
 
+///////// Icarus-Compatible SystemVerilog Assertions(not compatible with concurrent assertions) /////////
+`ifndef SYNTHESIS
+always@(posedge clk) begin
+    if(!rst) begin
+        assert(pc_out[1:0] == 2'b00) else $fatal(1,"PC is not aligned to 4 bytes");
+    end
+end
+`endif
+
+
 endmodule
 
