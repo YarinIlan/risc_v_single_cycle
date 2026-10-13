@@ -18,17 +18,18 @@ The core RTL architecture is fully implemented. The project has successfully pas
 - [x] **Hardware Verification**: Implementation of SystemVerilog Assertions (SVA) for active runtime monitoring.
 - [x] **Generation of comprehensive Architectural Block Diagrams.**
 
-### 🛡️ Hardware Verification & Assertions (SVA)
-To ensure hardware reliability and dynamically catch edge-case bugs during simulation, the processor's core modules are instrumented with runtime assertions. To maintain compatibility with Icarus Verilog while preserving industrial verification standards, these are implemented as **Icarus-Compatible Immediate Assertions** wrapped in `` `ifndef SYNTHESIS `` macros to ensure zero synthesis overhead. 
-
-Key architectural invariants verified at runtime include:
-* **Control Unit:** Mutual exclusion checks (e.g., preventing simultaneous `mem_write` and `jump`/`branch` operations) and strict validation of all legal control signal states.
-* **Register File:** Hardware-level enforcement of `x0` (Zero Register) immutability, along with synchronous write and asynchronous read verification across clock cycles.
-* **Program Counter (PC):** Strict verification of 4-byte memory alignment for all instruction fetches and branch targets.
-* **ALU:** Validation of legal ALU opcodes and strict correlation checks between the operational `result` and the `zero` flag, complete with 'X' (unknown) state protection during Time-0 initialization.
 
 ### 🛠️ Next Steps
 - [ ] Functional Coverage analysis.
+
+
+## 🏗️ Architecture
+The design follows a modular integration approach:
+* **Datapath:** Handles all data routing, arithmetic operations via a 10-operation ALU (Arithmetic, Logical, Shifts), and data memory access.
+* **Control Unit:** Dynamically decodes standard RISC-V 32-bit instructions (Opcode, funct3, bit30) to orchestrate the datapath without inferred latches. Separated into a `main_decoder` (dispatching a 14-bit control vector) and an `alu_decoder`.
+* **Top-Level Wrapper:** Encapsulates the system for seamless simulation and validation.
+
+      
 ## 🏅 RISC-V Compliance & Verification
 To ensure the processor strictly adheres to the RISC-V standard, the verification environment is designed to execute official **RISC-V Architecture Test Suite** programs. 
 
@@ -48,11 +49,16 @@ The core successfully executes the following instruction categories:
 * **J-Type:** `jal`, `jalr` (Full support for function calls and return address linking)
 * **U-Type:** `lui`, `auipc`
 
-## 🏗️ Architecture
-The design follows a modular integration approach:
-* **Datapath:** Handles all data routing, arithmetic operations via a 10-operation ALU (Arithmetic, Logical, Shifts), and data memory access.
-* **Control Unit:** Dynamically decodes standard RISC-V 32-bit instructions (Opcode, funct3, bit30) to orchestrate the datapath without inferred latches. Separated into a `main_decoder` (dispatching a 14-bit control vector) and an `alu_decoder`.
-* **Top-Level Wrapper:** Encapsulates the system for seamless simulation and validation.
+
+## 🛡️ Hardware Verification & Assertions (SVA)
+To ensure hardware reliability and dynamically catch edge-case bugs during simulation, the processor's core modules are instrumented with runtime assertions. To maintain compatibility with Icarus Verilog while preserving industrial verification standards, these are implemented as **Icarus-Compatible Immediate Assertions** wrapped in `` `ifndef SYNTHESIS `` macros to ensure zero synthesis overhead. 
+
+Key architectural invariants verified at runtime include:
+* **Control Unit:** Mutual exclusion checks (e.g., preventing simultaneous `mem_write` and `jump`/`branch` operations) and strict validation of all legal control signal states.
+* **Register File:** Hardware-level enforcement of `x0` (Zero Register) immutability, along with synchronous write and asynchronous read verification across clock cycles.
+* **Program Counter (PC):** Strict verification of 4-byte memory alignment for all instruction fetches and branch targets.
+* **ALU:** Validation of legal ALU opcodes and strict correlation checks between the operational `result` and the `zero` flag, complete with 'X' (unknown) state protection during Time-0 initialization.
+
 
 ## 🛠️ Tools Used
 * **Design:** SystemVerilog
