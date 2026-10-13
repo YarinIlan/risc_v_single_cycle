@@ -16,6 +16,7 @@ The core RTL architecture is fully implemented. The project has successfully pas
 - [x] **Extensive corner-case testing** (e.g., zero-register immutability, out-of-bounds shifts, arithmetic underflows).
 - [x] **Integration with the official RISC-V Compliance Suite** to ensure strict ISA standard compliance via Signature Dumps.
 - [x] **Hardware Verification**: Implementation of SystemVerilog Assertions (SVA) for active runtime monitoring.
+- [x] **Generation of comprehensive Architectural Block Diagrams.**
 
 ### 🛡️ Hardware Verification & Assertions (SVA)
 To ensure hardware reliability and dynamically catch edge-case bugs during simulation, the processor's core modules are instrumented with runtime assertions. To maintain compatibility with Icarus Verilog while preserving industrial verification standards, these are implemented as **Icarus-Compatible Immediate Assertions** wrapped in `` `ifndef SYNTHESIS `` macros to ensure zero synthesis overhead. 
@@ -27,7 +28,6 @@ Key architectural invariants verified at runtime include:
 * **ALU:** Validation of legal ALU opcodes and strict correlation checks between the operational `result` and the `zero` flag, complete with 'X' (unknown) state protection during Time-0 initialization.
 
 ### 🛠️ Next Steps
-- [ ] Generation of comprehensive Architectural Block Diagrams.
 - [ ] Functional Coverage analysis.
 ## 🏅 RISC-V Compliance & Verification
 To ensure the processor strictly adheres to the RISC-V standard, the verification environment is designed to execute official **RISC-V Architecture Test Suite** programs. 
