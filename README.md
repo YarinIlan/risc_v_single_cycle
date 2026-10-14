@@ -29,7 +29,17 @@ The design follows a modular integration approach:
 * **Control Unit:** Dynamically decodes standard RISC-V 32-bit instructions (Opcode, funct3, bit30) to orchestrate the datapath without inferred latches. Separated into a `main_decoder` (dispatching a 14-bit control vector) and an `alu_decoder`.
 * **Top-Level Wrapper:** Encapsulates the system for seamless simulation and validation.
 
-      
+  
+## ⚙️ Supported Instruction Set (RV32I)
+The core successfully executes the following instruction categories:
+* **R-Type:** `add`, `sub`, `and`, `or`, `xor`, `sll`, `srl`, `sra`, `slt`, `sltu`
+* **I-Type:** `addi`, `slli`, `srli`, `srai`, `slti`, `sltiu`, `andi`, `ori`, `xori`
+* **S-Type & Load:** `sw`, `lw`
+* **B-Type:** `beq` (Infrastructure supports easy expansion to `bne`, `blt`, `bge`)
+* **J-Type:** `jal`, `jalr` (Full support for function calls and return address linking)
+* **U-Type:** `lui`, `auipc`
+
+
 ## 🏅 RISC-V Compliance & Verification
 To ensure the processor strictly adheres to the RISC-V standard, the verification environment is designed to execute official **RISC-V Architecture Test Suite** programs. 
 
@@ -39,15 +49,6 @@ The testbench dynamically loads compiled `.hex` compliance tests and utilizes a 
 0x00000000// (Data Memory Output),
 0000000f  // Result of 5 + 10,
 00000000  // Result of -1 + 1 (Arithmetic Overflow/Zero check)
-
-## ⚙️ Supported Instruction Set (RV32I)
-The core successfully executes the following instruction categories:
-* **R-Type:** `add`, `sub`, `and`, `or`, `xor`, `sll`, `srl`, `sra`, `slt`, `sltu`
-* **I-Type:** `addi`, `slli`, `srli`, `srai`, `slti`, `sltiu`, `andi`, `ori`, `xori`
-* **S-Type & Load:** `sw`, `lw`
-* **B-Type:** `beq` (Infrastructure supports easy expansion to `bne`, `blt`, `bge`)
-* **J-Type:** `jal`, `jalr` (Full support for function calls and return address linking)
-* **U-Type:** `lui`, `auipc`
 
 
 ## 🛡️ Hardware Verification & Assertions (SVA)
