@@ -78,17 +78,17 @@ This project is simulated using Icarus Verilog and analyzed with GTKWave.
 
 **Compile the design:**
 
-Bash
+Bash:
 iverilog -g2012 -o processor_sim tb/testbench.sv rtl/*.sv
 
 **Run the simulation:**
 
-Bash
+Bash:
 vvp processor_sim
 
 **View Waveforms:**
 
-Bash
+Bash:
 gtkwave dump.vcd
 
 
