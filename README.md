@@ -66,10 +66,10 @@ To ensure hardware reliability and dynamically catch edge-case bugs during simul
 
 **Key architectural invariants verified at runtime include:**
 
--**Control Unit:** Mutual exclusion checks (e.g., preventing simultaneous mem_write and jump/branch operations) and strict validation of all legal control signal states.
--**Register File:** Hardware-level enforcement of x0 (Zero Register) immutability, along with synchronous write and asynchronous read verification across clock cycles.
--**Program Counter (PC):** Strict verification of 4-byte memory alignment for all instruction fetches and branch targets.
--**ALU:** Validation of legal ALU opcodes and strict correlation checks between the operational result and the zero flag, complete with 'X' (unknown) state protection during Time-0 initialization.
+- **Control Unit:** Mutual exclusion checks (e.g., preventing simultaneous mem_write and jump/branch operations) and strict validation of all legal control signal states.
+- **Register File:** Hardware-level enforcement of x0 (Zero Register) immutability, along with synchronous write and asynchronous read verification across clock cycles.
+- **Program Counter (PC):** Strict verification of 4-byte memory alignment for all instruction fetches and branch targets.
+- **ALU:** Validation of legal ALU opcodes and strict correlation checks between the operational result and the zero flag, complete with 'X' (unknown) state protection during Time-0 initialization.
 
 
 ## 🚀 How to Run (Simulation)
@@ -79,19 +79,16 @@ This project is simulated using Icarus Verilog and analyzed with GTKWave.
 **Compile the design:**
 
 Bash
-
 iverilog -g2012 -o processor_sim tb/testbench.sv rtl/*.sv
 
 **Run the simulation:**
 
 Bash
-
 vvp processor_sim
 
 **View Waveforms:**
 
 Bash
-
 gtkwave dump.vcd
 
 
