@@ -1,10 +1,13 @@
 # RISC-V (RV32I) Single-Cycle Processor Core 💻
 
+
 ## 📌 Overview
 This repository contains a custom-built, single-cycle 32-bit RISC-V (RV32I) processor core implemented in SystemVerilog from scratch. The project focuses on a strict modular RTL design, explicitly separating the Datapath and Control Unit without relying on pre-made templates. The design physically realizes the standard RV32I Base Integer Instruction Set Architecture, handling memory load/stores, complex branching, unconditioned jumps, and upper-immediate calculations within a single clock cycle.
 
+
 ## ✅ Project Status: Completed
 The core RTL architecture is fully implemented and verified. The project has successfully passed self-checking integration tests, corner-case validations, and generates correct compliance signatures against the official RISC-V standard.
+
 
 ## 🚀 Achieved Milestones (Design & Verification)
 - [x] **Complete Datapath implementation** (ALU, Register File, Sign Extender, PC logic).
@@ -18,6 +21,7 @@ The core RTL architecture is fully implemented and verified. The project has suc
 - [x] **Hardware Verification**: Implementation of SystemVerilog Assertions (SVA) for active runtime monitoring.
 - [x] **Generation of comprehensive Architectural Block Diagrams.**
 
+
 ## 🏗️ Architecture
 The design follows a modular integration approach:
 - **Datapath:** Handles all data routing, arithmetic operations via a 10-operation ALU (Arithmetic, Logical, Shifts), and data memory access.
@@ -25,6 +29,7 @@ The design follows a modular integration approach:
 - **Top-Level Wrapper:** Encapsulates the system for seamless simulation and validation.
 
 ![RISC-V Datapath](images/risc_v_scheme.drawio.svg)
+
 
 ## ⚙️ Supported Instruction Set (RV32I)
 The core successfully executes the following instruction categories:
@@ -48,7 +53,8 @@ The testbench dynamically loads compiled `.hex` compliance tests and utilizes a 
 00000000   // Result of -1 + 1 (Arithmetic Overflow/Zero check)
 ```
 
-##🛡️ Hardware Verification & Assertions (SVA)
+
+## 🛡️ Hardware Verification & Assertions (SVA)
 To ensure hardware reliability and dynamically catch edge-case bugs during simulation, the processor's core modules are instrumented with runtime assertions. To maintain compatibility with Icarus Verilog while preserving industrial verification standards, these are implemented as Icarus-Compatible Immediate Assertions wrapped in `ifndef SYNTHESIS macros to ensure zero synthesis overhead.
 
 Key architectural invariants verified at runtime include:
@@ -62,36 +68,33 @@ Program Counter (PC): Strict verification of 4-byte memory alignment for all ins
 ALU: Validation of legal ALU opcodes and strict correlation checks between the operational result and the zero flag, complete with 'X' (unknown) state protection during Time-0 initialization.
 
 
-##🚀 How to Run (Simulation)
+## 🚀 How to Run (Simulation)
 This project is simulated using Icarus Verilog and analyzed with GTKWave.
 
 Compile the design:
-
 Bash
 iverilog -g2012 -o processor_sim tb/testbench.sv rtl/*.sv
-Run the simulation:
 
+Run the simulation:
 Bash
 vvp processor_sim
-View Waveforms:
 
+View Waveforms:
 Bash
 gtkwave dump.vcd
 
 
-##🔮 Future Enhancements
+## 🔮 Future Enhancements
 [ ] Functional Coverage analysis via SystemVerilog covergroups.
 [ ] Pipelining the Datapath (5-Stage Pipeline).
 
 
-
-##🛠️ Tools Used
+## 🛠️ Tools Used
 Design: SystemVerilog
 Simulation & Verification: Icarus Verilog, GTKWave
 
 
-
-##👨‍💻 About the Author
+## 👨‍💻 About the Author
 Yarin Ilan
-Engineering Student at Ben-Gurion University of the Negev.
-Focused on Computer Architecture, RTL, Chip Design, and Hardware Engineering.
+Electrical Engineering Student at Ben-Gurion University of the Negev.
+Focused on Computer Architecture, VLSI, RTL, Chip Design and Hardware Engineering.
